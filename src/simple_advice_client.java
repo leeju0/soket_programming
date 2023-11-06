@@ -16,9 +16,12 @@ public class simple_advice_client {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             // bufferedReader로 비트스트림에서 문자열을 읽을 준비가 되었음 이제 . . .
-            // readLine() 줄바꿈이 있는것까지 가져옴, 구분자역할
+            // readLine() 줄바꿈이 있는것까지 가져옴, 구분자역할 ,,, 즉 한줄 딱 가져온다는 뜻
             String str = bufferedReader.readLine();
             System.out.println("str = " + str);
+
+            bufferedReader.close();
+            socket.close();
 
         } catch (IOException e) { //연결 안되면 ? 입출력을 해야하는데, 안되는 그런 상황
             System.out.println("연결 끊김!");
