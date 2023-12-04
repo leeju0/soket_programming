@@ -1,3 +1,5 @@
+package exam;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -7,9 +9,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class GUI_FILE_EXCHANGE {
+
+//파일 전송
+public class gui_file_exchange_practice {
     static Socket socket;
     public static void main(String[] args) {
+        //레이아웃 생성
         JFrame frame = new JFrame("Data transfer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800,600);
@@ -20,15 +25,17 @@ public class GUI_FILE_EXCHANGE {
         container.add(connectButton, BorderLayout.NORTH);
         container.add(sendButton, BorderLayout.CENTER);
 
+        //서버 연결
         connectButton.addActionListener(e-> {
-            try {
-                socket = new Socket("117.16.243.99", 5501);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+                try {
+                    socket = new Socket("117.16.243.99", 5501);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
 
         });
 
+        //파일 전송
         sendButton.addActionListener(e-> {
             JFileChooser chooser = new JFileChooser();
             int ret = chooser.showOpenDialog(null);
@@ -53,7 +60,7 @@ public class GUI_FILE_EXCHANGE {
                     //전송
                     int nRead = 0; //읽은 바이트 수 저장
                     while ((nRead = fis.read(buffer, 0, buffer.length)) != -1) {// 최대 버퍼길이만큼 데이터를 읽어, 읽은 바이트수를 전송
-                        dos.write(buffer, 0, nRead); // 전송 4:  파일 전송
+                        dos.write(buffer, 0, nRead); // 읽어들인 데이터를 소켓을 통해 전송
                         dos.flush(); // 출력 스트림을 비워서 모든 데이터를 소켓에 전송
                     }
                     fis.close();

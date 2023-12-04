@@ -8,13 +8,13 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class SIMPLE_CHAT_CLIENT {
+public class simple_chat_client_practice {
     public static void main(String[] args) throws IOException {
-        //레이아웃
+        //레이아웃 생성
         JFrame frame = new JFrame("chatting!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400,300);
-        frame.setLocationRelativeTo(null);
+        frame.setLocationRelativeTo(null); // 화면 중앙에 위치하도록
 
         //컴포넌트 쓰기위해 컨테이너 생성
         Container container = frame.getContentPane();
@@ -43,7 +43,7 @@ public class SIMPLE_CHAT_CLIENT {
         messageField.addActionListener(e-> sendMessage(messageField,pw)); //enter칠때
         sendButton.addActionListener(e -> sendMessage(messageField,pw)); //버튼누를때
 
-        //수신(비동기 통신) - 서버로 잘 보냈는지 확인하는 용도, 서버에 보내진 채팅 기록을 다시 가져와서 보여줌
+        //수신(비동기 통신) - 서버로 잘 보냈는지 확인하는 용도, 서버에 보내진 채팅 기록을 다시 가져와서 채팅창에 보여줌
         BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
         new Thread(() -> br.lines().forEach((line) -> {
             chatArea.append(line + '\n');
@@ -53,6 +53,7 @@ public class SIMPLE_CHAT_CLIENT {
         frame.setVisible(true);
     }
 
+    //채팅 전송
     private static void sendMessage(JTextField messageField, PrintWriter pw) {
         pw.println(messageField.getText()); //채팅창에 입력한것을 pw객체에 담아 전송
         messageField.setText(""); //전송후에 텍스트 필드 비워줌
